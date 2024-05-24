@@ -3,6 +3,8 @@ from steps.clean_data import clean_data
 from steps.model_train import train_model, save_model
 from steps.evaluation import evaluate_model
 
+from calibration.calibration import get_calibration_curve, get_calibrated_model
+
 import joblib
 
 def main():
@@ -12,6 +14,11 @@ def main():
     save_model(xgb_model, "saved_models/xgb_model.joblib")
     xgb_model = joblib.load("saved_models/xgb_model.joblib")
     accuracy = evaluate_model(xgb_model, X_test, y_test)
+    get_calibration_curve(xgb_model, X_test, y_test)
+
+    xgb_model_calibrated = get_calibrated_model(xgb_model, X_test, y_test)
+    accuracy = evaluate_model(xgb_model_calibrated, X_test, y_test)
+    get_calibration_curve(xgb_model_calibrated, X_test, y_test)
 
 if __name__ == "main":
     main()

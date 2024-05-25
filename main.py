@@ -17,7 +17,7 @@ def main():
     get_calibration_curve(xgb_model, X_test, y_test)
 
     xgb_model_calibrated = get_calibrated_model(xgb_model, X_test, y_test)
-    accuracy = evaluate_model(xgb_model_calibrated, X_test, y_test)
+    accuracy_calibrated = evaluate_model(xgb_model_calibrated, X_test, y_test)
     get_calibration_curve(xgb_model_calibrated, X_test, y_test)
 
 if __name__ == "main":
